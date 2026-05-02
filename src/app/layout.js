@@ -20,13 +20,12 @@ export const metadata = {
     "Real-time stock dashboard with search, watchlist, and performance optimizations.",
   openGraph: {
     title: "Stock Dashboard",
-    description:
-      "Search stocks, track watchlist, and view real-time updates.",
+    description: "Search stocks, track watchlist, and view real-time updates.",
     url: "https://stock-screener-beta-cyan.vercel.app/",
     siteName: "Stock Dashboard",
     images: [
       {
-        url: "https://stock-screener-beta-cyan.vercel.app/og-image.png", 
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Stock Dashboard Preview",
