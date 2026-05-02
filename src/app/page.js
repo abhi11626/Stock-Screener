@@ -6,6 +6,7 @@ import SearchInput from "@/components/SearchInput";
 import StockCard from "@/components/StockCard";
 import Watchlist from "@/components/Watchlist";
 import useWatchlist from "@/hooks/useWatchlist";
+import Link from "next/link";
 
 export default function Page() {
   const [stocks, setStocks] = useState([]);
@@ -19,7 +20,7 @@ export default function Page() {
       stocks.map((stock) => (
         <StockCard key={stock.symbol} stock={stock} addStock={addStock} />
       )),
-    [stocks, addStock]
+    [stocks, addStock],
   );
 
   const handleSearch = useCallback(async (query) => {
@@ -35,17 +36,18 @@ export default function Page() {
 
     try {
       const response = await fetch(
-        `/api/search?q=${encodeURIComponent(searchQuery)}`
+        `/api/search?q=${encodeURIComponent(searchQuery)}`,
       );
       const data = await response.json();
-      const results = response.ok && Array.isArray(data.results)
-        ? data.results
-            .filter((stock) => stock.symbol && stock.name)
-            .map((stock) => ({
-              symbol: stock.symbol,
-              name: stock.name,
-            }))
-        : [];
+      const results =
+        response.ok && Array.isArray(data.results)
+          ? data.results
+              .filter((stock) => stock.symbol && stock.name)
+              .map((stock) => ({
+                symbol: stock.symbol,
+                name: stock.name,
+              }))
+          : [];
 
       setStocks(results);
     } finally {
@@ -58,7 +60,9 @@ export default function Page() {
       className="mx-auto w-full max-w-5xl space-y-5 px-4 py-5 sm:space-y-6 sm:p-6 lg:py-8"
       aria-busy={loading}
     >
-      <h1 className="text-xl font-bold sm:text-2xl">Stock Dashboard</h1>
+      <Link href="/">
+        <h1 className="text-xl font-bold sm:text-2xl">Stock Dashboard</h1>
+      </Link>
 
       <SearchInput onSearch={handleSearch} />
 
